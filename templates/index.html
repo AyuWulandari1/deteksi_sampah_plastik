@@ -1,0 +1,119 @@
+{% extends "_layout.html" %}
+{% block content %}
+<div class="container">
+    <div class="jumbotron">
+        <div class="container mb-1">
+            <h3><i>Real-time</i></h3>
+            <!-- <h4 id="time_card" class="card-text">00:00:00</h4> -->
+        </div>
+        <div class="container mb-2 row">
+            <div class="col-md-6">
+                {% if setting.stream_on %}
+                <img src="/video_feed" width={{setting.w}}>
+                {% else %}
+                <img src="/static/img/no_video.png" width={{setting.w}}>
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <div id="main_card" class="row">
+                    <!-- BUTTON CONTROL -->
+                    <div class="col-md-12 mb-2">
+
+                        {% if setting.stream_on %}
+                        <a href="/?camera=off" class="btn btn-danger" role="button">Turn Off Camera</a>
+                        {% else %}
+                        <a href="/?camera=on" class="btn btn-primary" role="button">Turn On Camera</a>
+                        {% endif %}
+                    </div>
+
+                    <!-- CARD TIME & FPS -->
+                    <div class="col-md-6 mb-2">
+                        <div class="card border-success text-center">
+                            <h6 class="card-header">
+                              Botol
+                            </h6>
+                            <div class="card-body text-success">
+                                <h4 id="botol" class="card-text">0</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <div class="card border-success text-center">
+                            <h6 class="card-header">
+                              Gelas
+                            </h6>
+                            <div class="card-body text-success">
+                                <h4 id="gelas" class="card-text">0</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <div class="card border-success text-center">
+                            <h6 class="card-header">
+                              Sendok
+                            </h6>
+                            <div class="card-body text-success">
+                                <h4 id="sendok" class="card-text">0</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <div class="card border-success text-center">
+                            <h6 class="card-header">
+                              Styrofoam
+                            </h6>
+                            <div class="card-body text-success">
+                                <h4 id="styrofoam" class="card-text">0</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-2">
+                        <div class="card border-success text-center">
+                            <h6 class="card-header">
+                              Estimasi Berat
+                            </h6>
+                            <div class="card-body text-success">
+                                <h4 id="styrofoam" class="card-text">0</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    var card_template = 
+        '<div class="col-md-3 mb-2 counter_card"> ' +
+            '<div class="card border-success text-center"> ' +
+                '<div class="card-header">' +
+                    '<h6>&&</h6> ' +
+                '</div>' +
+                '<div class="card-body text-success"> ' +
+                    '<h4 id="inference" class="card-text">%%</h4> ' +
+                '</div> ' +
+            '</div> ' +
+        '</div> ';
+
+    var spacing_template = 
+        '<div class="col-md-12 counter_card">' +
+            '<hr>' +
+            '<h5>&&</h5>' +
+        '</div>'
+</script>
+<script>
+    function time() {
+        var d = new Date();
+        var s = d.getSeconds();
+        var m = d.getMinutes();
+        var h = d.getHours();
+        $("#time_card").text(("0" + h).substr(-2) + ":" + ("0" + m).substr(-2) + ":" + ("0" + s).substr(-2));
+    }
+    setInterval(time, 1000);
+</script>
+
+
+{% endblock %}

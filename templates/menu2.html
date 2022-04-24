@@ -1,0 +1,113 @@
+{% extends "_layout.html" %}
+{% block content %}
+<div class="container">
+    <!-- <div class="jumbotron" style="background-color: #01f7ff;"> -->
+    <div class="jumbotron">
+        <div class="container mb-1">
+            <h3><i>Test Image</i></h3>
+        </div>
+
+        <div class="container mb-2 row">
+            <div class="col-md-6">
+               
+                {% if filename %}
+                    <div>
+                        <img id="imagen" src="{{ url_for('display_image', filename=filename) }}" width="480" height="500">
+                    </div>
+                {% else %}
+                <img id="imagen" src="/static/img/No-image-available.png" width=480>
+                {% endif %}
+                
+            </div>
+            <div class="col-md-6">
+                <div id="main_card" class="row">
+                    <div class="col-md-12 mb-2">
+                        <form method="post" action="uploads" enctype="multipart/form-data">
+                            <div class="form-row">
+                                <div class="col-12 col-md-8">
+                                    <input id="inputFile1" class="btn btn-primary" type="file" name="file" required>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <input class="btn btn-success" type="submit" value="Submit">
+                                </div>
+                            </div> 
+                        </form>
+                    </div>
+
+                    <div class="col-md-6 mb-2">
+                        <div class="card border-success text-center">
+                            <h6 class="card-header">
+                              Botol
+                            </h6>
+                            <div class="card-body text-success">
+                                <h4 id="botol" class="card-text">0</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <div class="card border-success text-center">
+                            <h6 class="card-header">
+                              Gelas
+                            </h6>
+                            <div class="card-body text-success">
+                                <h4 id="gelas" class="card-text">0</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <div class="card border-success text-center">
+                            <h6 class="card-header">
+                              Sendok
+                            </h6>
+                            <div class="card-body text-success">
+                                <h4 id="sendok" class="card-text">0</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <div class="card border-success text-center">
+                            <h6 class="card-header">
+                              Styrofoam
+                            </h6>
+                            <div class="card-body text-success">
+                                <h4 id="styrofoam" class="card-text">0</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-2">
+                        <div class="card border-success text-center">
+                            <h6 class="card-header">
+                              Estimasi Berat
+                            </h6>
+                            <div class="card-body text-success">
+                                <h4 id="styrofoam" class="card-text">0</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    function init() {
+        var inputFile = document.getElementById('inputFile1');
+        inputFile.addEventListener('change', mostrarImagen, false);
+    }
+    function mostrarImagen(event) {
+        var file = event.target.files[0];
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            var img = document.getElementById('imagen');
+            img.src = event.target.result;
+            img.width = 500;
+            img.height = 500;
+        }
+        reader.readAsDataURL(file);
+    }
+    window.addEventListener('load', init, false);
+</script>
+{% endblock %}
